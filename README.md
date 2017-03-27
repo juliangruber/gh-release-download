@@ -2,6 +2,8 @@
 
 Download all assets of a GitHub release.
 
+![screenshot](screenshot.png)
+
 ## Example
 
 Using the API:
