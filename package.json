@@ -6,8 +6,7 @@
   "description": "Download all assets of a GitHub release",
   "devDependencies": {
     "prettier-standard-formatter": "^0.222222222222222.333333333333333",
-    "standard": "^9.0.2",
-    "tap": "^10.3.0"
+    "standard": "^9.0.2"
   },
   "dependencies": {
     "ansi-diff-stream": "^1.2.0",
@@ -23,7 +22,7 @@
     "throat": "^3.0.0"
   },
   "scripts": {
-    "test": "prettier-standard-formatter *.js && standard && tap test.js"
+    "test": "prettier-standard-formatter *.js && standard"
   },
   "bin": {
     "gh-release-download": "bin.js"
