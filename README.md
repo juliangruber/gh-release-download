@@ -6,6 +6,16 @@ Download all assets of a GitHub release.
 
 ## Example
 
+Using the CLI:
+
+```bash
+$ cd ~/dev/Level/leveldown
+$ gh-release-download dist/
+...
+$ ls dist/
+...
+```
+
 Using the API:
 
 ```js
@@ -25,28 +35,18 @@ downloader
 .catch(err => console.error(err))
 ```
 
-Using the CLI:
-
-```bash
-$ cd ~/dev/Level/leveldown
-$ gh-release-download dist/
-...
-$ ls dist/
-...
-```
-
 ## Installation
-
-For API:
-
-```bash
-$ npm install gh-release-download
-```
 
 For CLI:
 
 ```bash
 $ npm install -g gh-release-download
+```
+
+For API:
+
+```bash
+$ npm install gh-release-download
 ```
 
 ## License
