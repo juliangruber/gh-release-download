@@ -1,6 +1,6 @@
 {
   "name": "gh-release-download",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "repository": "juliangruber/gh-release-download",
   "description": "Download all assets of a GitHub release",
