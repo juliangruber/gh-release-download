@@ -1,0 +1,27 @@
+{
+  "name": "gh-release-download",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "juliangruber/gh-release-download",
+  "description": "Download all assets of a GitHub release",
+  "devDependencies": {
+    "prettier-standard-formatter": "^0.222222222222222.333333333333333",
+    "standard": "^9.0.2",
+    "tap": "^10.3.0"
+  },
+  "dependencies": {
+    "gh-latest-release": "^1.0.0",
+    "git-remote-origin-url": "^2.0.0",
+    "got": "^6.7.1",
+    "parse-github-repo-url": "^1.4.0",
+    "promisepipe": "^2.0.0",
+    "then-fs": "^2.0.0",
+    "throat": "^3.0.0"
+  },
+  "scripts": {
+    "test": "prettier-standard-formatter *.js && standard && tap test.js"
+  },
+  "bin": {
+    "gh-release-download": "bin.js"
+  }
+}
