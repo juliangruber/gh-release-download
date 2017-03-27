@@ -29,7 +29,7 @@ Using the CLI:
 
 ```bash
 $ cd ~/dev/Level/leveldown
-$ gh-release-download
+$ gh-release-download dist/
 ...
 $ ls dist/
 ...

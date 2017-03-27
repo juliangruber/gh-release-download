@@ -6,7 +6,9 @@ const checkmarks = require('checkmarks')
 const chalk = require('chalk')
 const spinners = require('cli-spinners')
 
-const downloader = download()
+const downloader = download({
+  dst: process.argv[2]
+})
 const assets = {}
 const spinner = spinners.dots
 
