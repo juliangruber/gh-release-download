@@ -13,6 +13,7 @@
     "chalk": "^1.1.3",
     "checkmarks": "^1.0.1",
     "cli-spinners": "^1.0.0",
+    "extrakt": "^0.1.2",
     "gh-latest-release": "^1.0.0",
     "git-remote-origin-url": "^2.0.0",
     "got": "^6.7.1",

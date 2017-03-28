@@ -8,6 +8,7 @@ const got = require('got')
 const fs = require('then-fs')
 const pipe = require('promisepipe')
 const EventEmitter = require('events')
+const extrakt = require('extrakt')
 
 const latest = opts => {
   opts = opts || {}
@@ -27,16 +28,20 @@ const latest = opts => {
       release.assets.map(
         throat(concurrency, asset => {
           p.events.emit('start', asset.name)
-          return pipe(
-            got.stream(asset.browser_download_url),
-            fs.createWriteStream(`${dst}/${asset.name}`)
-          ).then(() => p.events.emit('finish', asset.name))
+          const get = got.stream(asset.browser_download_url)
+          const tmp = fs.createWriteStream(`/tmp/${asset.name}`)
+          return pipe(get, tmp)
+            .then(() =>
+              extrakt(
+                `/tmp/${asset.name}`,
+                `${dst}/${asset.name.replace(/\.tar\.gz$/, '')}/`
+              ))
+            .then(() => p.events.emit('finish', asset.name))
         })
       )
     ))
 
   p.events = new EventEmitter()
-
   return p
 }
 

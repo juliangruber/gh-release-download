@@ -1,6 +1,6 @@
 # gh-release-download
 
-Download all assets of a GitHub release.
+Download and extract all assets of a GitHub release.
 
 ![screenshot](screenshot.png)
 
