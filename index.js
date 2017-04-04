@@ -29,13 +29,20 @@ const latest = opts => {
         throat(concurrency, asset => {
           p.events.emit('start', asset.name)
           const get = got.stream(asset.browser_download_url)
-          const tmp = fs.createWriteStream(`/tmp/${asset.name}`)
-          return pipe(get, tmp)
-            .then(() =>
-              extrakt(
-                `/tmp/${asset.name}`,
-                `${dst}/${asset.name.replace(/\.tar\.gz$/, '')}/`
-              ))
+          let written
+          if (/\.tar\.gz$/.test(asset.name)) {
+            const tmp = fs.createWriteStream(`/tmp/${asset.name}`)
+            written = pipe(get, tmp)
+              .then(() =>
+                extrakt(
+                  `/tmp/${asset.name}`,
+                  `${dst}/${asset.name.replace(/\.tar\.gz$/, '')}/`
+                ))
+          } else {
+            written = pipe(get, fs.createWriteStream(`${dst}/${asset.name}`))
+          }
+
+          return written
             .then(() => p.events.emit('finish', asset.name))
         })
       )
