@@ -24,29 +24,31 @@ const latest = opts => {
     .then(() => gitRemoteOriginUrl(dir))
     .then(url => parseGitHubRepoUrl(url))
     .then(repo => ghLatestRelease(`${repo[0]}/${repo[1]}`))
-    .then(release => Promise.all(
-      release.assets.map(
-        throat(concurrency, asset => {
-          p.events.emit('start', asset.name)
-          const get = got.stream(asset.browser_download_url)
-          let written
-          if (/\.tar\.gz$/.test(asset.name)) {
-            const tmp = fs.createWriteStream(`/tmp/${asset.name}`)
-            written = pipe(get, tmp)
-              .then(() =>
+    .catch(_ => {})
+    .then(release => {
+      if (!release) return
+      return Promise.all(
+        release.assets.map(
+          throat(concurrency, asset => {
+            p.events.emit('start', asset.name)
+            const get = got.stream(asset.browser_download_url)
+            let written
+            if (/\.tar\.gz$/.test(asset.name)) {
+              const tmp = fs.createWriteStream(`/tmp/${asset.name}`)
+              written = pipe(get, tmp).then(() =>
                 extrakt(
                   `/tmp/${asset.name}`,
                   `${dst}/${asset.name.replace(/\.tar\.gz$/, '')}/`
                 ))
-          } else {
-            written = pipe(get, fs.createWriteStream(`${dst}/${asset.name}`))
-          }
+            } else {
+              written = pipe(get, fs.createWriteStream(`${dst}/${asset.name}`))
+            }
 
-          return written
-            .then(() => p.events.emit('finish', asset.name))
-        })
+            return written.then(() => p.events.emit('finish', asset.name))
+          })
+        )
       )
-    ))
+    })
 
   p.events = new EventEmitter()
   return p
